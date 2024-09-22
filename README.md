@@ -1,38 +1,63 @@
-# STQS
+# SpaceTraders: New Game Registration App
 
-## Goal
-Your goal is to visit [SpaceTraders.io](https://docs.spacetraders.io/quickstart/new-game) and implement as many features from the quickstart as you feel able to.
+This is a Vite-React-TS application that allows users to register for a new game in Space Traders by submitting a symbol and selecting a faction. 
+The app interacts directly with the Space Traders API to handle user registration and token management.
 
-> SpaceTraders is a fun, free game driven entirely through API interactions. It is not affiliated with us in any way, so please ensure you abide by their [rate limits](https://docs.spacetraders.io/api-guide/rate-limits).
-## Delivery
-We have scaffolded a small project (this repo) to get you started. It contains everything you need to run and work on your quickstart. We will be running it when we receive your submission, so please ensure it works and contains any additional information we need to run it.
+## Key Features
 
-On completion, return the repository to us, either zipped as an attachment or uploaded to a Git hosting service.
+- User registration with a symbol and faction selection.
+- Error Handling: Displays success or error message/alert based on registration status.
+- Loading: Manages loading states while submitting.
+- Validation: Validates symbol length min 3 and max 14
+- Token Management: Stores API token in local storage for future requests using useEffect hook.
+- Resets also removes token from local storage
+- Form Handling: Handles form changes and submissions using the useCallback hook
+- Responsive design with Bootstrap for a user-friendly experience.
+- Maintains flow of project using version control system Git-Github
 
-## Tips
-We suggest focusing on a quality **vertical slice**, rather than lots of functionality. Consider this an opportunity to show us how you might approach building an application, which you will then have the chance to walk us through later. You do not need to build a large application - focus on demonstrating experience over feature completion.
+  **App link** (https://monikas5.github.io/NewGame/)
+  
+## Technologies Used
 
-Areas we will be looking to discuss include:
-- How you structure your code
-- Idiomatic use of React and ECMAScript
-- How you use the type system to build confidence in your code
-- Performance considerations when dealing with side effects and state
-- How styling is organized and applied (we don't expect you to be a designer, so don't worry about aesthetic choices)
-- How you use source code management (Git) to segment your changes
+- React
+- TypeScript
+- Bootstrap - for styling the app
+- Git - for tracking changes in source code 
+- GitHub - for hosting Git repositories
+- Fetch API - for making HTTP requests
 
-We have implemented the very first part of the quickstart here to get you moving (see `NewGame.tsx`), but how you structure things (and how you present the user interface) is entirely up to you.
 
-## Requirements
 
-NodeJS 18+
-NPM
+## Commands used
 
-## Running
+```
+npm create vite@latest
+npm install
+npm ci
+npm install --save-dev @vitejs/plugin-react-swc
+npm install bootstrap
+npm install react-router-dom
+npm install @types/react-dom --save-dev
 
-`npm ci`
+```
+>In main.tsx (for Bootstrap)
+`import 'bootstrap/dist/css/bootstrap.min.css'`
+
+**to run the app**
 `npm run dev`
-See `package.json` for more details on available scripts.
 
-## Exercise
+## Deployment
+Steps:
 
-Run the project (or read `./src/App.tsx`) for details of the exercise.
+1. In `vit.config.ts` :
+        add ` base: '/NewGame/',` 
+
+2. `npm install gh-pages --save-dev`
+
+3. In `package.json`
+        in scripts
+           ` "predeploy": "npm run build",`
+            `"deploy": "gh-pages -d dist"`
+
+3. `npm run deploy`
+
