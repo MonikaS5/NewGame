@@ -127,7 +127,7 @@ function NewGame() {
             <h2 className="text-center text-info">New Game Registration</h2>
           </div>
         </div>
-        {/* ----- */}
+
         <div className="row ">
           <div className="col-sm-12 col-md-4">
             <form className="bg-light p-4" onSubmit={handleSubmit}>
@@ -167,7 +167,7 @@ function NewGame() {
                   ))}
                 </select>
               </div>
-              {/* ---select-- */}
+
               <div>
                 <button
                   type="submit"
@@ -201,10 +201,16 @@ function NewGame() {
 
           <div className="col-sm-12 col-md-8 mt-5">
             <div>
-              <pre>API token: {token ? token : "Token is not available"}</pre>
+              <pre>
+                <span className="fw-bold">API token:</span>
+                {token ? token : "Token is not available"}
+              </pre>
             </div>
             <div className="oveflow-auto">
-              <pre>Response: {resp}</pre>
+              <pre>
+                <span className="fw-bold">Response:</span>
+                {resp}
+              </pre>
             </div>
           </div>
         </div>

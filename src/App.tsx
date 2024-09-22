@@ -6,7 +6,7 @@ const App: React.FC = () => {
   return (
     <>
       <div>
-        <h1 className="text-primary text-center">SpaceTrader</h1>
+        <h1 className="text-primary text-center">SpaceTraders</h1>
       </div>
       <Router>
         <Routes>

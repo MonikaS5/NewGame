@@ -16,7 +16,7 @@ The app interacts directly with the Space Traders API to handle user registratio
 - Maintains flow of project using version control system Git-Github
 
   **App link** (https://monikas5.github.io/NewGame/)
-  
+
 ## Technologies Used
 
 - React
@@ -25,8 +25,7 @@ The app interacts directly with the Space Traders API to handle user registratio
 - Git - for tracking changes in source code 
 - GitHub - for hosting Git repositories
 - Fetch API - for making HTTP requests
-
-
+- Postman - for API testing
 
 ## Commands used
 
@@ -49,13 +48,13 @@ npm install @types/react-dom --save-dev
 ## Deployment
 Steps:
 
-1. In `vit.config.ts` :
-        add ` base: '/NewGame/',` 
+1. In `vit.config.ts` 
+        - add ` base: '/NewGame/',` 
 
 2. `npm install gh-pages --save-dev`
 
 3. In `package.json`
-        in scripts
+        - in scripts
            ` "predeploy": "npm run build",`
             `"deploy": "gh-pages -d dist"`
 
