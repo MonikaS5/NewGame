@@ -57,8 +57,17 @@ function NewGame() {
       setResp(JSON.stringify(json, null, 2));
     } catch (error) {
       setResp(`Error : ${error}`);
+    }finally{
+        setIsLoading(false);
     }
   };
+
+  const handleReset = () => {
+    setForm({ symbol: "", faction: "COSMIC" });
+    setToken("");
+    setResp("");
+  }
+
 
   return (
     <>
@@ -69,9 +78,9 @@ function NewGame() {
           </div>
         </div>
         {/* ----- */}
-        <div className="row">
-          <div className="col-6">
-            <form className="bg-light" onSubmit={handleSubmit}>
+        <div className="row border">
+          <div className="col-sm-12 col-md-4">
+            <form className="bg-light p-4" onSubmit={handleSubmit}>
               <div>
                 <label htmlFor="symbol"> Symbol: </label>
                 <input
@@ -84,7 +93,7 @@ function NewGame() {
                   minLength={3}
                   onChange={handleChange}
                 />
-              </div>{" "}
+              </div>
               {/* ---input-- */}
               <div>
                 <label htmlFor="faction"> Faction: </label>
@@ -101,26 +110,30 @@ function NewGame() {
                     </option>
                   ))}
                 </select>
-              </div>{" "}
+              </div>
               {/* ---select-- */}
               <div>
-                <button type="submit" disabled={isLoading}>
+                <button type="submit"
+                className="btn btn-primary me-4"
+                 disabled={isLoading}>
                     {isLoading ? "Submitting...": "Submit"}
                 </button>
-                <button type="button">Reset</button>
+                <button type="button"
+                className="btn btn-secondary"
+                onClick={handleReset}>Reset</button>
               </div>
             </form>
-          </div>{" "}
-          {/* ---col-1-- */}
-          <div className="col-6">
+          </div>
+          
+          <div className="col-sm-12 col-md-8">
             <pre>API token: {token}</pre>
             <pre>Response: {resp}</pre>
-          </div>{" "}
-          {/* ---col2-- */}
-        </div>{" "}
-        {/* ---row 2-- */}
-      </div>{" "}
-      {/* ---end of container-- */}
+          </div>
+          
+        </div>
+        
+      </div>
+      
     </>
   );
 }
