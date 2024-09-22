@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useCallback, useState } from "react"
 
 interface FormUser{
     symbol: string;
@@ -13,7 +13,12 @@ function NewGame() {
   const factions = ["COSMIC", "VOID", "QUANTUM","DOMINION", "ASTRO", "UNITED", "OMEGA"];
 
 
+const handleChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>)=>{
+        const {name, value} = e.target;
+        setForm((prevForm)=>({...prevForm, [name]: value}));
 
+}, [])
 
 
   return (
@@ -31,13 +36,24 @@ function NewGame() {
                 <form className="bg-light">
                     <div>
                         <label htmlFor="symbol"> Symbol: </label>
-                        <input/>
+                        <input 
+                        type="text"
+                        className="form-control"
+                        id="symbol"
+                        name="symbol"
+                        value={form.symbol}
+                        maxLength={14}
+                        minLength={3}
+                        onChange={handleChange}
+                        />
                     </div> {/* ---input-- */}
 
                     <div>
 
                     <label htmlFor="faction"> Faction: </label>
                         <select name="faction" 
+                        className="form-control"
+                        onChange={handleChange}
                         id="faction"
                         value={form.faction}
                         >
