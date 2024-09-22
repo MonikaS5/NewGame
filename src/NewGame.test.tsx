@@ -1,6 +1,6 @@
 import { it, expect } from "vitest";
 import { render, screen } from "@testing-library/react";
-import NewGame from "./NewGame";
+import NewGame from "./components/NewGame";
 
 it("renders", async () => {
     // Arrange
