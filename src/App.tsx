@@ -1,13 +1,20 @@
+import { HashRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
 import NewGame from "./components/NewGame";
 
-function App() {
+const App: React.FC = () => {
   return (
     <>
-      <h1>STQS</h1>
-      <NewGame />
+      <div>
+        <h1 className="text-primary text-center">SpaceTrader</h1>
+      </div>
+      <Router>
+        <Routes>
+          <Route path="/" element={<NewGame />}></Route>
+        </Routes>
+      </Router>
     </>
   );
-}
+};
 
 export default App;

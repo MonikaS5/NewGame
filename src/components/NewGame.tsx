@@ -24,37 +24,33 @@ function NewGame() {
     "OMEGA",
   ];
 
-  useEffect(()=>{
+  useEffect(() => {
     const storedToken = localStorage.getItem("token");
-    if(storedToken){
-        setToken(storedToken);
+    if (storedToken) {
+      setToken(storedToken);
     }
-
-  },[]);
-  const storeToken = (token:string) => {
-    localStorage.setItem("token", token)
+  }, []);
+  const storeToken = (token: string) => {
+    localStorage.setItem("token", token);
     setToken(token);
-  }
+  };
 
-
-
-//symbol validation
-const validateSymbol = (symbol: string) => {
+  //symbol validation
+  const validateSymbol = (symbol: string) => {
     const regex = /^[A-Za-z][A-Za-z0-9]{2,14}$/;
 
-    if(!regex.test(symbol)){
-        setSymbolError("Symbol must start with a letter, be alphanumeric and 3-14 characters long");
+    if (!regex.test(symbol)) {
+      setSymbolError(
+        "Symbol must start with a letter, be alphanumeric and 3-14 characters long"
+      );
 
-        setTimeout(()=>{
-            setSymbolError("");
-        }, 8000);
-    }else{
+      setTimeout(() => {
         setSymbolError("");
+      }, 8000);
+    } else {
+      setSymbolError("");
     }
-
-
-};
-
+  };
 
   //handleChange
   const handleChange = useCallback(
@@ -62,7 +58,7 @@ const validateSymbol = (symbol: string) => {
       const { name, value } = e.target;
       setForm((prevForm) => ({ ...prevForm, [name]: value }));
 
-      if(name === "symbol"){
+      if (name === "symbol") {
         validateSymbol(value);
       }
     },
@@ -76,10 +72,10 @@ const validateSymbol = (symbol: string) => {
     setIsLoading(true);
     setErrorMessage("");
     setSuccessMessage("");
-    
-    if(symbolError){
-        setErrorMessage("Please Enter valid Symbol");
-        return;
+
+    if (symbolError) {
+      setErrorMessage("Please Enter valid Symbol");
+      return;
     }
 
     try {
@@ -151,10 +147,10 @@ const validateSymbol = (symbol: string) => {
                   required
                 />
                 {symbolError && (
-                    <div className="text-danger mt-3">{symbolError}</div>
+                  <div className="text-danger mt-3">{symbolError}</div>
                 )}
               </div>
-             
+
               <div className="mb-3">
                 <label htmlFor="faction"> Faction: </label>
                 <select
@@ -204,11 +200,11 @@ const validateSymbol = (symbol: string) => {
           </div>
 
           <div className="col-sm-12 col-md-8 mt-5">
-            <div >
-                <pre>API token: {token ? token: "Token is not available"}</pre>
-                </div>
-                <div className="oveflow-auto">
-            <pre>Response: {resp}</pre>
+            <div>
+              <pre>API token: {token ? token : "Token is not available"}</pre>
+            </div>
+            <div className="oveflow-auto">
+              <pre>Response: {resp}</pre>
             </div>
           </div>
         </div>
