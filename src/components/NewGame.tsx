@@ -10,6 +10,7 @@ function NewGame() {
   const [resp, setResp] = useState<string>("");
   const [form, setForm] = useState<FormUser>({ symbol: "", faction: "COSMIC" });
 
+  const factions = ["COSMIC", "VOID", "QUANTUM","DOMINION", "ASTRO", "UNITED", "OMEGA"];
 
 
 
@@ -36,14 +37,24 @@ function NewGame() {
                     <div>
 
                     <label htmlFor="faction"> Faction: </label>
-                        <select name="" id=""></select>
+                        <select name="faction" 
+                        id="faction"
+                        value={form.faction}
+                        >
+                            {factions.map((faction)=>(
+                                <option key={faction} value={faction}>
+                                    {faction}
+                                </option>
+                            ))}
+
+                        </select>
                     </div> {/* ---select-- */}
 
                     <div>
                         <button type="submit">Submit</button>
                         <button type="button">Reset</button>
                     </div>
-                    
+
                 </form>
             </div> {/* ---col-1-- */}
 
