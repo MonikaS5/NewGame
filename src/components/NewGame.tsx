@@ -9,6 +9,7 @@ function NewGame() {
   const [token, setToken] = useState<string>("");
   const [resp, setResp] = useState<string>("");
   const [form, setForm] = useState<FormUser>({ symbol: "", faction: "COSMIC" });
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const factions = [
     "COSMIC",
@@ -32,6 +33,9 @@ function NewGame() {
   // handleSubmit
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setIsLoading(true);
+
+
     try {
       const response = await fetch("https://api.spacetraders.io/v2/register", {
         method: "POST",
@@ -100,7 +104,9 @@ function NewGame() {
               </div>{" "}
               {/* ---select-- */}
               <div>
-                <button type="submit">Submit</button>
+                <button type="submit" disabled={isLoading}>
+                    {isLoading ? "Submitting...": "Submit"}
+                </button>
                 <button type="button">Reset</button>
               </div>
             </form>
