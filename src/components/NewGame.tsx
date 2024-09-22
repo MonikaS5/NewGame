@@ -15,7 +15,14 @@ function NewGame() {
 
 
 
-  return (<>
+  return (
+  <>
+
+
+
+
+
+  
     <h1>New Game</h1>
     <input name="symbol" value={form.symbol} onChange={(e) => setForm({ ...form, symbol: e.currentTarget.value })} />
     <input name="faction" value={form.faction} onChange={(e) => setForm({ ...form, faction: e.currentTarget.value })} />
