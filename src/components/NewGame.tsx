@@ -1,11 +1,19 @@
 import { useState } from "react"
 
-
+interface FormUser{
+    symbol: string;
+    faction: string;
+}
 
 function NewGame() {
-  const [token, setToken] = useState();
-  const [resp, setResp] = useState("");
-  const [form, setForm] = useState({ symbol: "", faction: "COSMIC" });
+  const [token, setToken] = useState<string>("");
+  const [resp, setResp] = useState<string>("");
+  const [form, setForm] = useState<FormUser>({ symbol: "", faction: "COSMIC" });
+
+
+
+
+
 
   return (<>
     <h1>New Game</h1>
