@@ -17,37 +17,51 @@ function NewGame() {
 
   return (
   <>
+    <div className="container">
+
+        <div className="row">
+            <div className="col-12">
+                <h2 className="text-center">New Game Registration</h2>
+            </div>
+        </div>
+    {/* ----- */}
+        <div className="row">
+            <div className="col-6">
+                <form className="bg-light">
+                    <div>
+                        <label htmlFor="symbol"> Symbol: </label>
+                        <input/>
+                    </div> {/* ---input-- */}
+
+                    <div>
+
+                    <label htmlFor="faction"> Faction: </label>
+                        <select name="" id=""></select>
+                    </div> {/* ---select-- */}
+
+                    <div>
+                        <button type="submit">Submit</button>
+                        <button type="button">Reset</button>
+                    </div>
+                    
+                </form>
+            </div> {/* ---col-1-- */}
+
+
+            <div className="col-6">
+                <pre>API token: {token}</pre>
+                <pre>Response: {resp}</pre>
+            </div> {/* ---col2-- */}
+            
+        </div> {/* ---row 2-- */}
+
+    </div> {/* ---end of container-- */}
 
 
 
 
 
-  
-    <h1>New Game</h1>
-    <input name="symbol" value={form.symbol} onChange={(e) => setForm({ ...form, symbol: e.currentTarget.value })} />
-    <input name="faction" value={form.faction} onChange={(e) => setForm({ ...form, faction: e.currentTarget.value })} />
-    <input type="submit" onClick={async () => {
-      const resp = await fetch("https://api.spacetraders.io/v2/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          symbol: form.symbol,
-          faction: form.faction,
-        }),
-      });
-
-      const json = await resp.json();
-
-      if (resp.ok) {
-        setToken(json.data.token)
-      }
-
-      setResp(JSON.stringify(json, null, 2))
-    }} />
-    <pre>API token: {token}</pre>
-    <pre>Response: {resp}</pre>
+    
   </>)
 }
 
