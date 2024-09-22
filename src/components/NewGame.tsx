@@ -10,8 +10,9 @@ function NewGame() {
   const [resp, setResp] = useState<string>("");
   const [form, setForm] = useState<FormUser>({ symbol: "", faction: "COSMIC" });
   const [isLoading, setIsLoading] = useState<boolean>(false);
- const [successMessage, setSuccessMessage] = useState<string>("");
- const [errorMessage, setErrorMessage] = useState<string>("");
+  const [successMessage, setSuccessMessage] = useState<string>("");
+  const [errorMessage, setErrorMessage] = useState<string>("");
+  const [symbolError, setSymbolError] = useState<string>("");
 
   const factions = [
     "COSMIC",
@@ -23,11 +24,34 @@ function NewGame() {
     "OMEGA",
   ];
 
+
+//symbol validation
+const validateSymbol = (symbol: string) => {
+    const regex = /^[A-Za-z][A-Za-z0-9]{2,14}$/;
+
+    if(!regex.test(symbol)){
+        setSymbolError("Symbol must start with a letter, be alphanumeric and 3-14 characters long");
+
+        setTimeout(()=>{
+            setSymbolError("");
+        }, 8000);
+    }else{
+        setSymbolError("");
+    }
+
+
+};
+
+
   //handleChange
   const handleChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
       const { name, value } = e.target;
       setForm((prevForm) => ({ ...prevForm, [name]: value }));
+
+      if(name === "symbol"){
+        validateSymbol(value);
+      }
     },
     []
   );
@@ -56,16 +80,16 @@ function NewGame() {
 
       if (response.ok) {
         setToken(json.data.token);
-        setSuccessMessage(`Hello ${form.symbol}, Successfully Registered!`)
-      }else{
-        setErrorMessage(json.error.message || "Registration Failed")
+        setSuccessMessage(`Hello ${form.symbol}, Successfully Registered!`);
+      } else {
+        setErrorMessage(json.error.message || "Registration Failed");
       }
 
       setResp(JSON.stringify(json, null, 2));
     } catch (error) {
       setResp(`Error : ${error}`);
-    }finally{
-        setIsLoading(false);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -76,8 +100,7 @@ function NewGame() {
     setResp("");
     setErrorMessage("");
     setSuccessMessage("");
-  }
-
+  };
 
   return (
     <>
@@ -103,10 +126,14 @@ function NewGame() {
                   minLength={3}
                   onChange={handleChange}
                   placeholder="Enter Your Symbol"
-                  
+                  autoComplete="off"
+                  required
                 />
+                {symbolError && (
+                    <div className="text-danger mt-3">{symbolError}</div>
+                )}
               </div>
-              {/* ---input-- */}
+             
               <div className="mb-3">
                 <label htmlFor="faction"> Faction: </label>
                 <select
@@ -125,39 +152,42 @@ function NewGame() {
               </div>
               {/* ---select-- */}
               <div>
-                <button type="submit"
-                className="btn btn-primary me-4"
-                 disabled={isLoading}>
-                    {isLoading ? "Submitting...": "Submit"}
+                <button
+                  type="submit"
+                  className="btn btn-primary me-4"
+                  disabled={isLoading}
+                >
+                  {isLoading ? "Submitting..." : "Submit"}
                 </button>
-                <button type="button"
-                className="btn btn-secondary"
-                onClick={handleReset}>Reset</button>
+                <button
+                  type="button"
+                  className="btn btn-secondary"
+                  onClick={handleReset}
+                >
+                  Reset
+                </button>
               </div>
             </form>
 
             {successMessage && (
-                <div className="alert alert-success mt-5" role="alert">
-                    <h4 className="alert-heading">Well done!</h4>
-                    {successMessage}
-                    </div>
+              <div className="alert alert-success mt-5" role="alert">
+                <h4 className="alert-heading">Well done!</h4>
+                {successMessage}
+              </div>
             )}
             {errorMessage && (
-                <div className="alert alert-danger mt-5" role="alert">
-                    {errorMessage}
-                    </div>
+              <div className="alert alert-danger mt-5" role="alert">
+                {errorMessage}
+              </div>
             )}
           </div>
-          
+
           <div className="col-sm-12 col-md-8">
             <pre>API token: {token}</pre>
             <pre>Response: {resp}</pre>
           </div>
-          
         </div>
-        
       </div>
-      
     </>
   );
 }
