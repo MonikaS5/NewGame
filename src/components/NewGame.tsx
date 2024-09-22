@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 interface FormUser {
   symbol: string;
@@ -23,6 +23,19 @@ function NewGame() {
     "UNITED",
     "OMEGA",
   ];
+
+  useEffect(()=>{
+    const storedToken = localStorage.getItem("token");
+    if(storedToken){
+        setToken(storedToken);
+    }
+
+  },[]);
+  const storeToken = (token:string) => {
+    localStorage.setItem("token", token)
+    setToken(token);
+  }
+
 
 
 //symbol validation
@@ -63,6 +76,11 @@ const validateSymbol = (symbol: string) => {
     setIsLoading(true);
     setErrorMessage("");
     setSuccessMessage("");
+    
+    if(symbolError){
+        setErrorMessage("Please Enter valid Symbol");
+        return;
+    }
 
     try {
       const response = await fetch("https://api.spacetraders.io/v2/register", {
@@ -80,6 +98,7 @@ const validateSymbol = (symbol: string) => {
 
       if (response.ok) {
         setToken(json.data.token);
+        storeToken(json.data.token);
         setSuccessMessage(`Hello ${form.symbol}, Successfully Registered!`);
       } else {
         setErrorMessage(json.error.message || "Registration Failed");
@@ -100,18 +119,20 @@ const validateSymbol = (symbol: string) => {
     setResp("");
     setErrorMessage("");
     setSuccessMessage("");
+    setSymbolError("");
+    localStorage.removeItem("token");
   };
 
   return (
     <>
       <div className="container">
         <div className="row">
-          <div className="col-12">
-            <h2 className="text-center">New Game Registration</h2>
+          <div className="col-12 mt-5 mb-5">
+            <h2 className="text-center text-info">New Game Registration</h2>
           </div>
         </div>
         {/* ----- */}
-        <div className="row border">
+        <div className="row ">
           <div className="col-sm-12 col-md-4">
             <form className="bg-light p-4" onSubmit={handleSubmit}>
               <div className="mb-3">
@@ -182,9 +203,13 @@ const validateSymbol = (symbol: string) => {
             )}
           </div>
 
-          <div className="col-sm-12 col-md-8">
-            <pre>API token: {token}</pre>
+          <div className="col-sm-12 col-md-8 mt-5">
+            <div >
+                <pre>API token: {token ? token: "Token is not available"}</pre>
+                </div>
+                <div className="oveflow-auto">
             <pre>Response: {resp}</pre>
+            </div>
           </div>
         </div>
       </div>
